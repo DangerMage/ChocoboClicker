@@ -1,8 +1,6 @@
-import threading
-from window import window
+import core
 
-#might use later
-#import pyautogui
+windowClass = core.windowInputs()
 
-windowThread = threading.Thread(target=window)
-windowThread.start()
+windowClass.window()
+windowClass.autoClick()
