@@ -1,6 +1,5 @@
 import core
 
-windowClass = core.windowInputs()
+windowClass = core.WindowInputs()
 
 windowClass.window()
-windowClass.autoClick()
