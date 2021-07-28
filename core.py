@@ -39,7 +39,7 @@ class WindowInputs:
         #buttons
         refreshButton = tk.Button(text="Refresh inputs")
         refreshButton.grid(row=2, column=0)
-        mouseKeyToggle = tk.Button(textvariable=mouseKey, command=self.toggleMouseKey(mouseKey))
+        mouseKeyToggle = tk.Button(textvariable=mouseKey, command=lambda: self.toggleMouseKey(mouseKey))
         mouseKeyToggle.grid(row=2, column=2)
         while True:
             root.update()
@@ -52,8 +52,6 @@ class WindowInputs:
         if self.mouseKey == "left":
             self.mouseKey = "right"
             mouseKey.set(self.mouseKey)
-            print("Debug1")
         else:
             self.mouseKey = "left"
             mouseKey.set(self.mouseKey)
-            print("Debug2")
