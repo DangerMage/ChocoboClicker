@@ -1,22 +1,21 @@
 import tkinter as tk
 import pyautogui as clicky
 
-class windowInputs():
-    
+
+class WindowInputs:
+
     def __init__(self):
-        print("Window Started")
-        self.minColumnSize=100
-        self.minRowSize=50
+        self.minColumnSize = 100
+        self.minRowSize = 50
         self.mouseKey = "left"
         
     def window(self):
         root = tk.Tk()
         root.title("Chocobo Clicker")
-    
+
         mouseKey = tk.StringVar()
         mouseKey.set(self.mouseKey)
-    
-    
+
         for i in range(3):
             root.columnconfigure(i, weight=1, minsize=self.minColumnSize)
             root.rowconfigure(i, weight=1, minsize=self.minRowSize)
@@ -40,10 +39,21 @@ class windowInputs():
         #buttons
         refreshButton = tk.Button(text="Refresh inputs")
         refreshButton.grid(row=2, column=0)
-        mouseKeyToggle = tk.Button(text="Names")
+        mouseKeyToggle = tk.Button(textvariable=mouseKey, command=self.toggleMouseKey(mouseKey))
         mouseKeyToggle.grid(row=2, column=2)
         while True:
             root.update()
             self.autoClick()
+
     def autoClick(self):
         temp = 0
+
+    def toggleMouseKey(self, mouseKey):
+        if self.mouseKey == "left":
+            self.mouseKey = "right"
+            mouseKey.set(self.mouseKey)
+            print("Debug1")
+        else:
+            self.mouseKey = "left"
+            mouseKey.set(self.mouseKey)
+            print("Debug2")
