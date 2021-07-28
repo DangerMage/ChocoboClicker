@@ -5,7 +5,7 @@ import pyautogui as clicky
 class WindowInputs:
 
     def __init__(self):
-        self.minColumnSize = 100
+        self.minColumnSize = 110
         self.minRowSize = 50
         self.mouseKey = "left"
         
@@ -37,9 +37,9 @@ class WindowInputs:
         stopKeyEntry.grid(row=1, column=2, padx=5, pady=5)
     
         #buttons
-        refreshButton = tk.Button(text="Refresh inputs")
-        refreshButton.grid(row=2, column=0)
-        mouseKeyToggle = tk.Button(textvariable=mouseKey, command=lambda: self.toggleMouseKey(mouseKey))
+        refreshButton = tk.Button(text="Refresh inputs", relief = tk.RIDGE, borderwidth = 5)
+        refreshButton.grid(row=2, column=0, padx=15)
+        mouseKeyToggle = tk.Button(textvariable=mouseKey, command=lambda: self.toggleMouseKey(mouseKey), relief = tk.RIDGE, borderwidth = 5, width = 5)
         mouseKeyToggle.grid(row=2, column=2)
         while True:
             root.update()
