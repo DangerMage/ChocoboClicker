@@ -51,13 +51,13 @@ class WindowInputs:
         mouseKeyToggle.grid(row=2, column=2)
         while True:
             root.update()
-            self.autoClick()
+            self.autoClickToggle()
             startKeyEntry.delete(1, 'end')
             stopKeyEntry.delete(1, 'end')
             clickSpeedEntry.delete(8, 'end')
             outputText.set(f"Output:\n {self.outputText} ")
 
-    def autoClick(self):
+    def autoClickToggle(self):
         if kb.is_pressed(self.startKey) == True:
             time.sleep(0.2)
             print("debug1")
@@ -74,7 +74,22 @@ class WindowInputs:
             mouseKey.set(self.mouseKey)
 
     def refreshInputs(self, startKey, stopKey, cps):
-        self.startKey = startKey
-        self.stopKey = stopKey
-        self.cps = cps
-        print(startKey,stopKey,cps)
+        success = 0
+        if not startKey.strip():
+            self.outputText = "Invalid Key"
+        else:
+            self.startKey = startKey
+            success += 1
+        if not stopKey.strip():
+            self.outputText = "Invalid Key"
+        else:
+            self.stopKey = stopKey
+            success += 1
+        if cps.isdigit():
+            self.cps = cps
+            success += 1
+        else:
+            self.outputText = "CPS NaN"
+        if success == 3:
+            self.outputText = "Refreshed"
+        print(startKey,stopKey,cps, success)
