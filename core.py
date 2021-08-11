@@ -9,11 +9,15 @@ class WindowInputs:
     def __init__(self):
         self.minColumnSize = 110
         self.minRowSize = 50
+        self.cpsDivide = 1000
         self.mouseKey = "left"
         self.startKey = '*'
         self.stopKey = '-'
         self.cps = 10
         self.outputText = "Started"
+        self.isClicking = False
+        clicky.FAILSAFE = True
+        clicky.PAUSE = self.cpsDivide / self.cps
         
     def window(self):
         root = tk.Tk()
@@ -52,6 +56,7 @@ class WindowInputs:
         while True:
             root.update()
             self.autoClickToggle()
+            self.autoClick()
             startKeyEntry.delete(1, 'end')
             stopKeyEntry.delete(1, 'end')
             clickSpeedEntry.delete(8, 'end')
@@ -61,9 +66,11 @@ class WindowInputs:
         if kb.is_pressed(self.startKey) == True:
             time.sleep(0.2)
             print("debug1")
+            self.isClicking = True
         elif kb.is_pressed(self.stopKey) == True:
             time.sleep(0.2)
             print("debug2")
+            self.isClicking = False
 
     def toggleMouseKey(self, mouseKey):
         if self.mouseKey == "left":
@@ -86,10 +93,13 @@ class WindowInputs:
             self.stopKey = stopKey
             success += 1
         if cps.isdigit():
-            self.cps = cps
+            self.cps = int(cps)
             success += 1
+            clicky.PAUSE = self.cpsDivide / self.cps
         else:
             self.outputText = "CPS NaN"
         if success == 3:
             self.outputText = "Refreshed"
-        print(startKey,stopKey,cps, success)
+    def autoClick(self):
+        if self.isClicking:
+            clicky.click(button=self.mouseKey)
